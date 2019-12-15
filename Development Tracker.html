@@ -1,0 +1,416 @@
+<!DOCTYPE html>
+<!-- saved from url=(0108)file:///C:/wamp64/www/apparel-management-system/apparel-management-system/frontEnd/Development_Tracker.html# -->
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+   <!-- Required meta tags -->
+   
+   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+   <!-- Bootstrap CSS -->
+   <link rel="stylesheet" href="./Development Tracker_files/bootstrap.min.css">
+   <link rel="stylesheet" href="./Development Tracker_files/default.css">
+   
+   
+  
+  <!--<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>-->
+  <script src="./Development Tracker_files/jquery.min.js.download"></script>
+
+  <script src="./Development Tracker_files/bootstrap.min.js.download"></script>
+  <!--<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>-->
+
+    <title>Development Tracker</title>
+  </head>
+
+  <body class="container-fluid">
+    <a href="file:///C:/wamp64/www/apparel-management-system/apparel-management-system/frontEnd/dashboard.html"><img src="./Development Tracker_files/button.jpg" class="button-nav"></a>
+
+    
+    
+    <h1><center> Development Tracker</center></h1><br>
+   
+   
+    <button type="AddNewStyle" class="btn btn-success btn-spacer">Add New Style</button><br><!--add new style  button-->
+    
+  <!--model triger button-->  
+
+    <button type="button" id="btn2" class="btn btn-danger" data-toggle="modal" data-target="#myModal" ></button>
+
+<!-- Modal -->
+      <div class="modal fade" id="myModal" role="dialog">
+        <div class="modal-dialog">
+        
+          <!-- Modal content-->
+          <div class="modal-content">
+            
+            <div class="modal-header">
+              <button type="button" class="close" data-dismiss="modal">×</button><!--close button-->
+              <h4 class="modal-title">File access</h4><!--popup heading-->
+            </div>
+
+      <form enctype="multipart/form-data" id="inputFilePathe" name="filetoupload"><!--action="http://localhost:8080/fileupload"-->
+            <div class="modal-body"><!--testbox for file pathe-->
+              <div class="form-group row">
+                  <!-- <label for="inputCatagory" class="col-sm-2 col-form-label">&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;Catagory</label>-->
+                    
+                  <div class="col-lg-10">
+                        <input type="file" name="img" class="form-control">
+                    </div>
+                  </div>
+            </div>
+
+            <div class="modal-footer"><!--model buttons-->
+              <button type="button" class="btn btn-info" id="btnUpload">Upload</button>
+              <button type="button" class="btn btn-info" id="btnDownload">Download</button>
+              <button type="button" class="btn btn-info" data-dismiss="modal">Close</button>
+
+            </div>
+            </form>
+
+          </div>
+          
+        </div>
+      </div>
+ 
+      <table class="table tbl" id="divT"><!--style="table-layout:fixed; width:100%;"-->
+        
+
+         <thead class="p-3 mb-2 bg-primary fb text-white"><!--column headers-->
+          <tr>
+            <th scope="col" class="center" id="bs-h-devtrack">Bondwill<br>Style#</th>
+            <th scope="col" class="center" id="date-h-devtrack">Date Create</th>
+            <th scope="col" class="center" id="cr-h-devtrack">Coustomer<br>Ref#</th>
+            <th scope="col" class="center" id="bn-h-devtrack">Brand Name</th>
+            <th scope="col" class="center" id="st-h-devtrack">Style</th>
+            <th scope="col" class="center" id="sk-h-devtrack">Sketch</th>
+            <th scope="col" class="th-des" id="des-h-devtrack">Description</th>
+            <th scope="col" id="at-h-devtrack">....</th>
+            <th scope="col" id="m-h-devtrack">....</th>
+      
+          </tr>
+
+         </thead>
+
+         <tbody>
+          <script src="./Development Tracker_files/const.js.download"></script><!--inclule const file-->    
+          <script type="text/javascript">
+           /*script for model*/
+ 
+              var fileAvailable; 
+              var id;
+              var data;  
+
+              var modelBtn = $("#btn2");
+              //modelBtn.hide();
+
+
+             $.ajax(
+                {
+                      url: stylePath,
+                      success: function(response)  
+                      {
+                        
+                        $.each(response, (index, details) => 
+                        {
+                          if (details.status=='active')
+                          {
+                            //console.log(details);
+                            var  date = details.style_date.substring(0, 10);
+                          var img = "<img class='img' src='../data/style/"+details.bonStyle+'/sketch/'+details.sketch+".jpg' />";
+                
+                          $('#divT tbody').append("<tr class = 'actived' data>\n" +
+                        "      <td class='center'>" + details.bonStyle + '</td>\n' +
+                        "      <td class='center'>" + date + '</td>\n' +
+                        "      <td class='center'>" + details.cosId + '</td>\n' +
+                        "      <td class='center'>" + details.name + '</td>\n' +
+                        "      <td class='center'>" + details.style + '</td>\n' +
+                        "      <td class='center'>" + img + '</td>\n' +
+                        "      <td class='des' >" + details.description + '</td>\n' +
+                        "  <td><button type='BOM' class='btn btn-success bom-devtrack'  id='"+details.bonStyle+'-BOM-devtrack'+"'>BOM</button><br><br><button type='OB' class='btn btn-success ob-devtrack' id='"+details.bonStyle+'-OB-devtrack'+"'>OB</button><br><br><button type='pattern' class='btn btn-success pattrn-devtrack' id='"+details.bonStyle+'-pattrn-devtrack'+"'>Pattrn</button><br><br><button type='Marker' class='btn btn-success marker-devtrack' id='"+details.bonStyle+'-marker-devtrack'+"'>Marker</button><br><br><button type='chart' class='btn btn-success chart-devtrack' id='"+details.bonStyle+'-chart-devtrack'+"'>Measurement Chart</button></td>\n" +
+                        "  <td><button type='Edit'  class='btn btn-warning btn-sm edit-devtrack' id='"+details.bonStyle+'-edit-devtrack'+"'>Edit</button><br><br><button type='del' class='btn btn-danger btn-sm del-devtrack' id='"+details.bonStyle+'-del-devtrack'+"'>Delete</button></td>\n" +
+                        '    </tr>');
+                          }
+                        else if (details.status=='inactive')
+                        {
+                          var  date = details.style_date.substring(0, 10);
+                          var img = "<img class='img' src='../data/style/"+details.bonStyle+'/sketch/'+details.sketch+".jpg' />";
+                
+                          $('#divT tbody').append("<tr class = 'inactive' data>\n" +
+                        "      <td class='center'>" + details.bonStyle + '</td>\n' +
+                        "      <td class='center'>" + date + '</td>\n' +
+                        "      <td class='center'>" + details.cosId + '</td>\n' +
+                        "      <td class='center'>" + details.name + '</td>\n' +
+                        "      <td class='center'>" + details.style + '</td>\n' +
+                        "      <td class='center'>" + img + '</td>\n' +
+                        "      <td class='des' >" + details.description + '</td>\n' +
+                        "  <td><button type='BOM' class='btn btn-success '  id='"+details.bonStyle+'-BOM-devtrack'+"'>BOM</button><br><br><button type='OB' class='btn btn-success ' id='"+details.bonStyle+'-OB-devtrack'+"'>OB</button><br><br><button type='pattern' class='btn btn-success' id='"+details.bonStyle+'-pattrn-devtrack'+"'>Pattrn</button><br><br><button type='Marker' class='btn btn-success' id='"+details.bonStyle+'-marker-devtrack'+"'>Marker</button><br><br><button type='chart' class='btn btn-success' id='"+details.bonStyle+'-chart-devtrack'+"'>Measurement Chart</button></td>\n" +
+                        "  <td><button type='Edit'  class='btn btn-warning btn-sm ' id='"+details.bonStyle+'-edit-devtrack'+"'>Edit</button><br><br><button type='del' class='btn btn-danger btn-sm ' id='"+details.bonStyle+'-del-devtrack'+"'>Delete</button></td>\n" +
+                        '    </tr>');
+                        }
+
+
+                        });
+                        fileAvailable = response;
+                        
+                        
+////////////////////////////////////table button triger//////////////////////////////////////////////
+                        $('.bom-devtrack').click(function()//function for catch bom button click
+                          {
+                           id = $(this).parent().parent().children().first().html();
+                           alert(id+'-bom');
+                          
+                     
+                          });
+
+                        $('.ob-devtrack').click(function()//function for catch ob button click
+                          {
+                           id = $(this).parent().parent().children().first().html();
+                           alert(id+'-ob');
+                          });
+
+                        $('.pattrn-devtrack').click(function()//function for catch pattrn button click
+                          {
+                           id = $(this).parent().parent().children().first().html();
+                           
+                          
+                           data = {
+                                        data_index:id,
+                                        id_header:"bonStyle",
+                                        type:"pattern"
+
+                                      };
+                            
+                                    
+                           
+                           
+                            modelBtn.click();
+                            console.log(data);
+                           
+                          });
+
+                        $('.marker-devtrack').click(function()//function for catch marker button click
+                          {
+                           id = $(this).parent().parent().children().first().html();
+                           data = {
+                                        data_index:id,
+                                        id_header:"bonStyle",
+                                        type:"marker"
+
+                                      };
+                           
+                                      
+                            
+                           
+                            modelBtn.click();
+                           
+                          });
+
+                        $('.chart-devtrack').click(function()//function for catch chart button click
+                          {
+                           id = $(this).parent().parent().children().first().html();
+                           data = {
+                                        data_index:id,
+                                        id_header:"bonStyle",
+                                        type:"chart"
+
+                                      };
+                            
+                                      
+                           // postReq(data ,fileDataPath);
+                           
+                            modelBtn.click();
+                           
+                          });
+
+                          $('.edit-devtrack').click(function()//function for catch edit button click
+                          {
+                           id = $(this).parent().parent().children().first().html();
+                           alert(id+'-edit');
+                          });
+
+                          $('.del-devtrack').click(function()//function for catch del button click
+                          {
+                           id = $(this).parent().parent().children().first().html();
+                           
+                          
+                           
+                           
+
+                          });
+                      }, 
+        
+                      error: function(err) 
+                      {
+                        console.error(err);
+                      },
+        
+                      complete: function (res) 
+                      {
+                        
+                        console.log(res);
+                      }
+        });
+////////////////////////////////reqest function/////////////////////////////////////////////
+        function postReq(data ,url )
+        {
+         
+          
+          $.ajax(
+                                 {
+                                   
+                                    method: 'POST',
+                                    url: url,
+                                    contentType: "application/json; charset=utf-8",
+                                    dataType: 'JSON',
+                                    data: JSON.stringify(data),
+                                    success: function(response)
+                                    {
+                                      console.log(response);
+                                     
+
+                                    } 
+                                    
+                                   });
+        }
+///////////////////////////modal functions////////////////////////////////////////////////////
+
+$('#btnUpload').click(function()//function for catch del button click
+                      {
+                            
+                            var Data =`${data.type+'_name'}`;//creating _name
+                            for (var i = 0; i < fileAvailable.length; i++)
+                           {
+                              
+                              if ( fileAvailable[i].bonStyle == id && fileAvailable[i].status=='active') //filter active 
+                              {
+                                //console.log(fileAvailable[i][Data]);
+                                if (fileAvailable[i][Data]==='' )//check empty string
+                                {//if empty upload the file 
+                                  
+                                  $.ajax(
+                                            {
+                                              url:fileUploadPath+'?dataId='+data.data_index+'&dataType='+data.type+'&dataHeader='+data.id_header,
+                                              method:'post',
+                                              data:new FormData($('#inputFilePathe')[0]),
+                                              processData:false,
+                                              contentType:false,
+                                              success:function(response)
+                                                  {
+                                                    if (response == 'done')
+                                                    {
+                                                      alert('File uploaded successfully!');
+                                                    }
+
+                                                  }
+                                              });
+                              
+                                }
+
+                                else //if exsists confirm replace or not
+                                {
+                                  if(confirm("File already exist, do you want to replace ?"))
+                                  {
+                                    $.ajax(
+                                            {
+                                              url:fileUploadPath,
+                                              method:'post',
+                                              data:new FormData($('#inputFilePathe')[0]),
+                                              processData:false,
+                                              contentType:false,
+                                              success:function(response)
+                                                  {
+                                                    if (response == 'done')
+                                                    {
+                                                      alert('File uploaded successfully!');
+                                                    }
+
+                                                  }
+                                              });
+                                  }
+                                }
+                              }
+                           }
+
+                      });
+                               
+                              
+                          
+            
+
+
+
+  
+          </script> 
+          
+          
+           
+  
+         <tr class="inactive" data="">
+      <td class="center">1</td>
+      <td class="center">2019-11-13</td>
+      <td class="center">3</td>
+      <td class="center">mas</td>
+      <td class="center">2014</td>
+      <td class="center"><img class="img" src="./Development Tracker_files/sketch1.jpg"></td>
+      <td class="des">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</td>
+  <td><button type="BOM" class="btn btn-success " id="1-BOM-devtrack">BOM</button><br><br><button type="OB" class="btn btn-success " id="1-OB-devtrack">OB</button><br><br><button type="pattern" class="btn btn-success" id="1-pattrn-devtrack">Pattrn</button><br><br><button type="Marker" class="btn btn-success" id="1-marker-devtrack">Marker</button><br><br><button type="chart" class="btn btn-success" id="1-chart-devtrack">Measurement Chart</button></td>
+  <td><button type="Edit" class="btn btn-warning btn-sm " id="1-edit-devtrack">Edit</button><br><br><button type="del" class="btn btn-danger btn-sm " id="1-del-devtrack">Delete</button></td>
+    </tr><tr class="inactive" data="">
+      <td class="center">2</td>
+      <td class="center">2019-11-18</td>
+      <td class="center">4</td>
+      <td class="center">mas</td>
+      <td class="center">201878</td>
+      <td class="center"><img class="img" src="./Development Tracker_files/sketch2.jpg"></td>
+      <td class="des">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</td>
+  <td><button type="BOM" class="btn btn-success " id="2-BOM-devtrack">BOM</button><br><br><button type="OB" class="btn btn-success " id="2-OB-devtrack">OB</button><br><br><button type="pattern" class="btn btn-success" id="2-pattrn-devtrack">Pattrn</button><br><br><button type="Marker" class="btn btn-success" id="2-marker-devtrack">Marker</button><br><br><button type="chart" class="btn btn-success" id="2-chart-devtrack">Measurement Chart</button></td>
+  <td><button type="Edit" class="btn btn-warning btn-sm " id="2-edit-devtrack">Edit</button><br><br><button type="del" class="btn btn-danger btn-sm " id="2-del-devtrack">Delete</button></td>
+    </tr><tr class="inactive" data="">
+      <td class="center">3</td>
+      <td class="center">2019-11-15</td>
+      <td class="center">6</td>
+      <td class="center">mas</td>
+      <td class="center">mas2010</td>
+      <td class="center"><img class="img" src="./Development Tracker_files/sketch3.jpg"></td>
+      <td class="des">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</td>
+  <td><button type="BOM" class="btn btn-success " id="3-BOM-devtrack">BOM</button><br><br><button type="OB" class="btn btn-success " id="3-OB-devtrack">OB</button><br><br><button type="pattern" class="btn btn-success" id="3-pattrn-devtrack">Pattrn</button><br><br><button type="Marker" class="btn btn-success" id="3-marker-devtrack">Marker</button><br><br><button type="chart" class="btn btn-success" id="3-chart-devtrack">Measurement Chart</button></td>
+  <td><button type="Edit" class="btn btn-warning btn-sm " id="3-edit-devtrack">Edit</button><br><br><button type="del" class="btn btn-danger btn-sm " id="3-del-devtrack">Delete</button></td>
+    </tr><tr class="actived" data="">
+      <td class="center">4</td>
+      <td class="center">2019-11-15</td>
+      <td class="center">6</td>
+      <td class="center">mas</td>
+      <td class="center">mas2010</td>
+      <td class="center"><img class="img" src="./Development Tracker_files/sketch4.jpg"></td>
+      <td class="des">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</td>
+  <td><button type="BOM" class="btn btn-success bom-devtrack" id="4-BOM-devtrack">BOM</button><br><br><button type="OB" class="btn btn-success ob-devtrack" id="4-OB-devtrack">OB</button><br><br><button type="pattern" class="btn btn-success pattrn-devtrack" id="4-pattrn-devtrack">Pattrn</button><br><br><button type="Marker" class="btn btn-success marker-devtrack" id="4-marker-devtrack">Marker</button><br><br><button type="chart" class="btn btn-success chart-devtrack" id="4-chart-devtrack">Measurement Chart</button></td>
+  <td><button type="Edit" class="btn btn-warning btn-sm edit-devtrack" id="4-edit-devtrack">Edit</button><br><br><button type="del" class="btn btn-danger btn-sm del-devtrack" id="4-del-devtrack">Delete</button></td>
+    </tr><tr class="actived"  data="">
+      <td class="center">5</td>
+      <td class="center">2019-11-18</td>
+      <td class="center">4</td>
+      <td class="center">mas</td>
+      <td class="center">201878</td>
+      <td class="center"><img class="img" src="./Development Tracker_files/sketch2.jpg"></td>
+      <td class="des">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</td>
+  <td><button type="BOM" class="btn btn-success bom-devtrack" id="2-BOM-devtrack">BOM</button><br><br><button type="OB" class="btn btn-success ob-devtrack" id="2-OB-devtrack">OB</button><br><br><button type="pattern" class="btn btn-success pattrn-devtrack" id="2-pattrn-devtrack">Pattrn</button><br><br><button type="Marker" class="btn btn-success marker-devtrack" id="2-marker-devtrack">Marker</button><br><br><button type="chart" class="btn btn-success chart-devtrack" id="2-chart-devtrack">Measurement Chart</button></td>
+  <td><button type="Edit" class="btn btn-warning btn-sm edit-devtrack" id="2-edit-devtrack">Edit</button><br><br><button type="del" class="btn btn-danger btn-sm del-devtrack" id="2-del-devtrack">Delete</button></td>
+    </tr><tr class="actived"  data="">
+      <td class="center">6</td>
+      <td class="center">2019-11-15</td>
+      <td class="center">6</td>
+      <td class="center">mas</td>
+      <td class="center">mas2010</td>
+      <td class="center"><img class="img" src="./Development Tracker_files/sketch3.jpg"></td>
+      <td class="des">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</td>
+  <td><button type="BOM" class="btn btn-success bom-devtrack" id="3-BOM-devtrack">BOM</button><br><br><button type="OB" class="btn btn-success ob-devtrack" id="3-OB-devtrack">OB</button><br><br><button type="pattern" class="btn btn-success pattrn-devtrack" id="3-pattrn-devtrack">Pattrn</button><br><br><button type="Marker" class="btn btn-success marker-devtrack" id="3-marker-devtrack">Marker</button><br><br><button type="chart" class="btn btn-success chart-devtrack" id="3-chart-devtrack">Measurement Chart</button></td>
+  <td><button type="Edit" class="btn btn-warning btn-sm edit-devtrack" id="3-edit-devtrack">Edit</button><br><br><button type="del" class="btn btn-danger btn-sm del-devtrack" id="3-del-devtrack">Delete</button></td>
+    </tr></tbody>
+  
+      </table>
+ 
+
+  
+
+
+  
+
+</body></html>

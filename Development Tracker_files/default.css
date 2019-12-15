@@ -1,0 +1,154 @@
+.img {
+  width: 100px;
+  height: 100px;
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+
+.center {
+  text-align: center;
+
+}
+
+.justify{
+  overflow-wrap: normal;
+}
+
+/*
+.des{
+ 
+ word-wrap: break-word;
+}
+*/
+
+/*bondwil style no styles on development tracker */
+#bs-h-devtrack{
+  width:5%;
+}
+/*date styles on development tracker */
+#date-h-devtrack{
+  width:10%;
+}
+
+/*coustomer ref styles on development tracker */
+#cr-h-devtrack{
+  width:5%;
+}
+
+/*brand name styles on development tracker */
+#bn-h-devtrack{
+  width:10%;
+}
+
+/*style name styles on development tracker */
+#st-h-devtrack{
+  width:10%;
+}
+
+/*sketch styles on development tracker */
+#sk-h-devtrack{
+  width:15%;
+}
+
+/*description styles on development tracker */
+#des-h-devtrack{
+  width:25%;
+}
+
+/*attachments  styles on development tracker */
+#at-h-devtrack{
+  width:15%;
+}
+
+/*modify styles on development tracker */
+#m-h-devtrack{
+  width:7%;
+}
+
+.btn-spacer{
+  
+  margin-bottom: 5px;
+ 
+}
+
+.fb{
+	 background-color: #3b5998 !important;
+	
+}
+/*table header class */
+.tbl-header{
+	height:30px;
+	width: 5cm;
+}
+/*table class for fix table size */
+.tbl{
+  table-layout:fixed;
+   width:100%;
+}
+
+/*id style no styles on coustomers */
+#id-h-cos{
+  width:5%;
+}
+/*coustomer name styles on coustomers */
+#name-h-cos{
+  width:30%;
+}
+
+/*brand name styles on coustomers */
+#bn-h-cos{
+  width:30%;
+}
+
+/*season styles on coustomers */
+#season-h-cos{
+  width:15%;
+}
+
+/*buttons styles on coustomers */
+#buttons-h-cos{
+  width:20%;
+}
+
+.inactive{
+	background-color:#acb0b0 ;
+}
+
+.inactive:hover{
+	background-color:#acb0b0;
+}
+
+.inactive td{
+	color:white;
+}
+.actived{
+	background-color:white;
+}
+.actived:hover{
+	background-color:#EBEBE4;
+}
+
+.profile-userpic{
+  display: block;
+  float: none;
+  margin-left: 30px;
+  margin-top: 40px;
+  margin-bottom: 20px;
+  width: 70%;
+  height: 70%;
+  -webkit-border-radius: 50% !important;
+  -moz-border-radius: 50% !important;
+  border-radius: 50% !important;
+}
+.button-nav{
+  width: 30px;
+  height: 30px;
+  display: block;
+  margin-top: 20px;
+  margin-left: 20px;
+  margin-right: auto;
+
+}
+ 

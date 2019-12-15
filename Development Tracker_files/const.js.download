@@ -1,0 +1,31 @@
+/**
+ * @type {string}
+ * urls
+ */
+//const contextPath = 'http://104.197.129.152:3001/api/apparel-management-system/';
+ const contextPath = 'http://localhost:8080/api/apparel-management-system/';
+
+
+
+const comPath =  contextPath +'componnents';
+const cousPath = contextPath +'coustomers';
+const stylePath = contextPath +'styles';
+const fileDataPath = contextPath +'fileData';
+const fileUploadPath = contextPath +'fileUpload';
+const loginPath = contextPath +'login';
+const logOutPath = contextPath +'logout';
+
+
+
+/**
+ * @type {string}
+ * Constants
+ */
+/*
+const ACTION_TYPE_ON = "TYPE_ON";
+const ACTION_TYPE_OFF = "TYPE_OFF";
+const DEVICE_STATUS_ON = "ON";
+const DEVICE_STATUS_OFF = "OFF";
+const USER_TYPE_SUPER_ADMIN = "SUPER_ADMIN";
+const USER_TYPE_CLIENT = "CLIENT";
+*/
